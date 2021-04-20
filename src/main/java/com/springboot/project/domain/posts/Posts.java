@@ -1,5 +1,6 @@
 package com.springboot.project.domain.posts;
 
+import com.springboot.project.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor // 기본 생성자 자동 추가, public Posts() {}와 같은 효과
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     @Id // 해당 테이블의 PK필드를 나타냄
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK생성규칙
@@ -35,6 +36,13 @@ public class Posts {
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+
+    // 쿼리를 날리지 않고 update가능 -> JPA 영속성 컨텍스트 때문에
+    // 트랜젝션이 끝나는 시점에 해당 테이블에 변경분을 반영함여 쿼리를 날릴 필요 없음
+    public void update(String title, String content){
+        this.title = title;
+        this.content = content;
     }
 
 }
