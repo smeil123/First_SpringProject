@@ -29,9 +29,10 @@ public class Posts extends BaseTimeEntity {
 
     private String author;
 
-    @Builder // 해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언 시 생성자에 포함된 필드만 빌더
+    // 해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언 시 생성자에 포함된 필드만 빌더
     // 생성자나 빌더나 생성 시점에 값을 채워주는 역할은 똑같으나,
     // 생성자의 경우 지금 채워야할 필드가 무엇인지 지정할 수가 없다
+    @Builder
     public Posts(String title, String content, String author){
         this.title = title;
         this.content = content;
