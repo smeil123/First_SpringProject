@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
+    
+    //Transactional을 붙여줘야 도메인을 변경했을때 JPA가 DB에 반영해줌
     @Transactional
     public Long save(PostsSaveRequestDto requestDto){
 
@@ -33,11 +35,18 @@ public class PostsService {
         return id;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
+    public void delete (Long id){
+        Posts posts = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+        postsRepository.delete(posts); // JPA에서 제공하는 delete 메소드 활용
+        // 엔티티로 삭제할 수도 있고, deleteById를 이용해서 id로 삭제할 수도 있음
+    }
+    
+    @Transactional
     public PostsResponseDto findById(Long id){
-        Posts entity = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
-
-        return new PostsResponseDto(entity);
+        Posts posts = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+        posts.readCount();
+        return new PostsResponseDto(posts);
     }
 
     //readOnly를 쓰면 조회 속도가 개선됨됨

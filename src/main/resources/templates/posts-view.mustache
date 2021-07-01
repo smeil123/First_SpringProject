@@ -1,0 +1,16 @@
+{{>layout/header}}
+
+<h1>게시글 보기</h1>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <p>게시믈번호 : {{post.id}}</p>
+        <p>조회수 : {{post.readCount}}</p>
+        <h1>{{post.title}}</h1>
+        <p>글쓴이 : {{post.author}}</p>
+        <p>{{post.content}}</p>
+        <a href="/" onClick="top.location='javascript:location.reload()'" role="button" class="btn btn-secondary">뒤로가기</a>
+    </div>
+</div>
+
+{{>layout/footer}}

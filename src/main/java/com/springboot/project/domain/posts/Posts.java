@@ -28,6 +28,7 @@ public class Posts extends BaseTimeEntity {
     private String content;
 
     private String author;
+    private Integer readCount;
 
     // 해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언 시 생성자에 포함된 필드만 빌더
     // 생성자나 빌더나 생성 시점에 값을 채워주는 역할은 똑같으나,
@@ -37,6 +38,7 @@ public class Posts extends BaseTimeEntity {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.readCount = 0;
     }
 
     // 쿼리를 날리지 않고 update가능 -> JPA 영속성 컨텍스트 때문에
@@ -46,4 +48,7 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
     }
 
+    public void readCount(){
+        this.readCount = this.readCount + 1;
+    }
 }

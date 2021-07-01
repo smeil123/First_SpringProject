@@ -35,4 +35,12 @@ public class IndexController {
 
         return "posts-update";
     }
+
+    @GetMapping("/posts/view/{id}")
+    public String postsView(@PathVariable Long id,Model model){
+        PostsResponseDto dto = postsService.findById(id);
+        model.addAttribute("post",dto); //반환받은 dto를 post에 담아서 전달?
+
+        return "posts-view";
+    }
 }
