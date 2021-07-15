@@ -24,10 +24,6 @@ public class IndexController {
         //머스테치 스타터를 compile했기 때문에 자동으로 /src/main/resources/index.mustache 가 붙어서 찾아간다고 보면됨
         model.addAttribute("posts",postsService.findAllDesc());
         logger.trace("Trace");
-        logger.debug("Debug");
-        logger.info("Info");
-        logger.warn("Warn");
-        logger.error("Error");
         return "index";
     }
 

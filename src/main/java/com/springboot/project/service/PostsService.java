@@ -7,6 +7,9 @@ import com.springboot.project.web.dto.PostsResponseDto;
 import com.springboot.project.web.dto.PostsSaveRequestDto;
 import com.springboot.project.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.h2.message.Trace;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +21,8 @@ import java.util.stream.Collectors;
 @Service
 public class PostsService {
     private final PostsRepository postsRepository;
-    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     //Transactional을 붙여줘야 도메인을 변경했을때 JPA가 DB에 반영해줌
     @Transactional
     public Long save(PostsSaveRequestDto requestDto){
@@ -52,6 +56,7 @@ public class PostsService {
     //readOnly를 쓰면 조회 속도가 개선됨됨
     @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc(){
+        logger.error("postsService : findAllDesc");
         return postsRepository.findAllDesc().stream()
                 .map(PostsListResponseDto::new)
                 .collect(Collectors.toList());
